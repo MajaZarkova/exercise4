@@ -1,0 +1,88 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZKPMGDORM_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Students" sap:content-version="1">
+				<Key><PropertyRef Name="StudentId"/></Key><Property Name="StudentId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Student ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="RoomNumber" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Room Number" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="FirstName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="First Name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="LastName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Last Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="PhoneNumber" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Phone" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="Files" m:HasStream="true" sap:content-version="1">
+				<Key><PropertyRef Name="FileId"/></Key><Property Name="FileId" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="R/2 table" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Content" Type="Edm.Binary" Nullable="false" sap:unicode="false" sap:label="Binary String" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Character 100"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="Rooms" sap:content-version="1">
+				<Key><PropertyRef Name="RoomNumber"/></Key><Property Name="RoomNumber" Type="Edm.Int64" Nullable="false" sap:unicode="false" sap:label="Room Number" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="BedsNumber" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:label="Number of Beds" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="IsFull" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Is Full" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="toStudents" Relationship="ZKPMGDORM_SRV.RoomsStudents" FromRole="FromRole_RoomsStudents"
+					ToRole="ToRole_RoomsStudents"/></EntityType>
+			<EntityType Name="ZC_ROOMSType" sap:label="Consuption View For Rooms" sap:content-version="1">
+				<Key><PropertyRef Name="RoomNumber"/></Key><Property Name="RoomNumber" Type="Edm.Int64" Nullable="false" sap:label="Room Number" sap:quickinfo="Data element for Room Number"/><Property Name="NumberOfBeds" Type="Edm.Int16" sap:label="Number of Beds" sap:quickinfo="Data Element for Number of Beds"/><Property Name="IsFull" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Full"/></EntityType>
+			<EntityType Name="ZC_ROOMSWITHSTUDENTSType" sap:label="Consuption View For RoomWithStudents" sap:content-version="1">
+				<Key><PropertyRef Name="room_number"/></Key><Property Name="room_number" Type="Edm.Int64" Nullable="false" sap:label="Room Number" sap:quickinfo="Data element for Room Number"/><Property Name="beds_number" Type="Edm.Int16" sap:label="Number of Beds" sap:quickinfo="Data Element for Number of Beds"/><Property Name="is_full" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Full"/><NavigationProperty Name="to_Students" Relationship="ZKPMGDORM_SRV.assoc_2BC9FB6C2F820FE813836100D21D358D"
+					FromRole="FromRole_assoc_2BC9FB6C2F820FE813836100D21D358D" ToRole="ToRole_assoc_2BC9FB6C2F820FE813836100D21D358D"/></EntityType>
+			<EntityType Name="ZC_STUDENTSType" sap:label="Consuption View For Students" sap:content-version="1">
+				<Key><PropertyRef Name="StudentID"/></Key><Property Name="StudentID" Type="Edm.String" Nullable="false" MaxLength="5" sap:display-format="UpperCase" sap:label="Student ID"/><Property Name="RoomNumber" Type="Edm.Int64" sap:label="Room Number" sap:quickinfo="Data element for Room Number"/><Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="First Name"
+					sap:quickinfo="First Name Data Element"/><Property Name="LastName" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Last Name"
+					sap:quickinfo="Last Name Data Element"/><Property Name="PhoneNumber" Type="Edm.Int32" sap:label="Phone" sap:quickinfo="Phone Data Element"/></EntityType>
+			<ComplexType Name="StudentCheck"><Property Name="Exists" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Student Exists" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<Association Name="assoc_2BC9FB6C2F820FE813836100D21D358D" sap:content-version="1"><End Type="ZKPMGDORM_SRV.ZC_ROOMSWITHSTUDENTSType" Multiplicity="1" Role="FromRole_assoc_2BC9FB6C2F820FE813836100D21D358D"/><End Type="ZKPMGDORM_SRV.ZC_STUDENTSType" Multiplicity="*" Role="ToRole_assoc_2BC9FB6C2F820FE813836100D21D358D"/></Association>
+			<Association Name="RoomsStudents" sap:content-version="1"><End Type="ZKPMGDORM_SRV.Rooms" Multiplicity="1" Role="FromRole_RoomsStudents"/><End Type="ZKPMGDORM_SRV.Students" Multiplicity="*" Role="ToRole_RoomsStudents"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_RoomsStudents"><PropertyRef Name="RoomNumber"/></Principal>
+					<Dependent Role="ToRole_RoomsStudents"><PropertyRef Name="RoomNumber"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZKPMGDORM_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true"
+				sap:supported-formats="atom json xlsx"><EntitySet Name="ZC_ROOMS" EntityType="ZKPMGDORM_SRV.ZC_ROOMSType" sap:content-version="1"/><EntitySet Name="ZC_ROOMSWITHSTUDENTS" EntityType="ZKPMGDORM_SRV.ZC_ROOMSWITHSTUDENTSType" sap:content-version="1"/><EntitySet Name="ZC_STUDENTS" EntityType="ZKPMGDORM_SRV.ZC_STUDENTSType" sap:content-version="1"/><EntitySet Name="StudentsSet" EntityType="ZKPMGDORM_SRV.Students" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="FilesSet" EntityType="ZKPMGDORM_SRV.Files" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="RoomsSet" EntityType="ZKPMGDORM_SRV.Rooms" sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="RoomsStudentsSet" Association="ZKPMGDORM_SRV.RoomsStudents" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="RoomsSet" Role="FromRole_RoomsStudents"/><End EntitySet="StudentsSet" Role="ToRole_RoomsStudents"/></AssociationSet>
+				<AssociationSet Name="assoc_2BC9FB6C2F820FE813836100D21D358D" Association="ZKPMGDORM_SRV.assoc_2BC9FB6C2F820FE813836100D21D358D"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="ZC_ROOMSWITHSTUDENTS" Role="FromRole_assoc_2BC9FB6C2F820FE813836100D21D358D"/><End EntitySet="ZC_STUDENTS" Role="ToRole_assoc_2BC9FB6C2F820FE813836100D21D358D"/></AssociationSet>
+				<FunctionImport Name="CheckStudent" ReturnType="ZKPMGDORM_SRV.StudentCheck" m:HttpMethod="POST"><Parameter Name="Student_ID" Type="Edm.String" Mode="In" MaxLength="5"/></FunctionImport>
+			</EntityContainer>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZKPMGDORM_SRV.ZKPMGDORM_SRV_Entities">
+				<Annotation Term="Aggregation.ApplySupported">
+					<Record>
+						<PropertyValue Property="Transformations">
+							<Collection>
+								<String>aggregate</String>
+								<String>groupby</String>
+								<String>filter</String>
+							</Collection>
+						</PropertyValue><PropertyValue Property="Rollup" EnumMember="None"/></Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZKPMGDORM_SRV.ZC_ROOMSWITHSTUDENTSType">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>room_number</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZKPMGDORM_SRV.ZC_STUDENTSType">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>StudentID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZKPMGDORM_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZKPMGDORM_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
