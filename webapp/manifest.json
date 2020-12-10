@@ -42,10 +42,10 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.kpmg.exercise4.view.View1",
+			"viewName": "com.kpmg.exercise4.view.App",
 			"type": "XML",
 			"async": true,
-			"id": "View1"
+			"id": "app"
 		},
 		"dependencies": {
 			"minUI5Version": "1.65.6",
@@ -90,31 +90,27 @@
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"transition": "slide",
-				"bypassed": {
-					"target": "notFound"
-				}
+				"async": true
 			},
 			"routes": [{
+				"pattern": "",
+				"name": "View1",
+				"target": "View1"
+			}, {
 				"pattern": "View2/{RoomNumber}",
 				"name": "View2",
 				"target": "View2"
-			}, {
-				"pattern": "View1",
-				"name": "View1",
-				"target": "View1"
-
 			}],
 			"targets": {
-				"View2": {
-					"viewName": "View2",
-					"viewId": "View2",
-					"viewLevel" : 2
-				},
-
 				"View1": {
 					"viewName": "View1",
 					"viewId": "View1",
-					"viewLevel" : 1
+					"viewLevel": 1
+				},
+				"View2": {
+					"viewName": "View2",
+					"viewId": "View2",
+					"viewLevel": 2
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller/BaseController"
+	"com/kpmg/exercise4/controller/BaseController"
 ], function (BaseController) {
 	"use strict";
 

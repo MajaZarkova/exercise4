@@ -1,5 +1,5 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller/BaseController",
+	"com/kpmg/exercise4/controller/BaseController",
 	"sap/ui/core/UIComponent"
 ], function (BaseController, UIComponent) {
 	"use strict";
@@ -7,6 +7,7 @@ sap.ui.define([
 	return BaseController.extend("com.kpmg.exercise4.controller.View1", {
 		onInit: function () {
 			this.oView = this.getView();
+		//	UIComponent.prototype.init.apply(this, arguments);
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.getRoute("View2").attachMatched(this._onRouteMatched, this);
 		},
@@ -29,7 +30,8 @@ sap.ui.define([
 				}
 			});
 		},
-		_onBindingChange: function (oEvent) {
+		
+		_onBindingChange : function (oEvent) {
 			// No data for the binding
 			if (!this.getView().getBindingContext()) {
 				this.getRouter().getTargets().display("notFound");
@@ -40,8 +42,8 @@ sap.ui.define([
 			var oItem, oCtx;
 			oItem = oEvent.getSource();
 			oCtx = oItem.getBindingContext();
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("View2",{
+		//	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			this.getRouter().navTo("View2",{
 				RoomNumber : oCtx.getProperty("RoomNumber")
 			});
 		}
